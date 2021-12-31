@@ -17,6 +17,10 @@ export default makeStyles((theme) => ({
     display: 'flex',
     textDecoration: 'none',
   },
+  Link: {
+    textDecoration: 'none',
+    padding: '15px',
+  },
   image: {
     marginRight: '10px',
   },

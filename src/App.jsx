@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { commerce } from './lib/commerce';
 //Haciendo importes de componentes como niño grande 🚸
-import  { Products, Navbar, Cart, Checkout } from './components';
+import  { Products, Navbar, Cart, Checkout, Home, About, Contact } from './components';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+
 
 const App = () => {
     const [products, setProducts] = useState([]); // useState  = empty array
@@ -65,10 +67,17 @@ const App = () => {
 
     return (
         <Router>
-      <div style={{ display: 'flex' }}>
-        <Navbar totalItems={cart.total_items}/>
+      <div  style={{ display: 'flex'}}>
+        <Navbar totalItems={cart.total_items}>
+        </Navbar>
         <Routes>
-          <Route  path="/" element={<Products products={products} onAddToCart={handleAddToCart} handleUpdateCartQty />}>
+          <Route path="/" element={<Home />}>
+          </Route>
+          <Route path="/about" element={<About />}>
+          </Route>
+          <Route path="/contact" element={<Contact />}>
+          </Route>
+          <Route  path="/productos" element={<Products products={products} onAddToCart={handleAddToCart} handleUpdateCartQty />}>
           </Route>
           <Route  path="/cart" element={<Cart cart={cart} onUpdateCartQty={handleUpdateCartQty} onRemoveFromCart={handleRemoveFromCart} onEmptyCart={handleEmptyCart} />}>
           </Route>
