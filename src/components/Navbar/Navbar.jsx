@@ -49,8 +49,8 @@ const Navbar = ({ totalItems }) => {
             <Toolbar>
               <Link to="/" className={classes.title}>
                 <Typography variant="h6" color="inherit">
-                    <img src={logo} alt="Commerce.js" height="25px" className={classes.image} />
-                    KatStore
+                    <img src={logo} alt="Commerce.js" height="35px" className={classes.image} />
+                    Kat!
                 </Typography> 
                 </Link >
                 <Link to="/productos" className={classes.Link}>

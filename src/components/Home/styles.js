@@ -3,13 +3,15 @@ import { makeStyles } from "@material-ui/core/styles";
 export default makeStyles ((theme) => ({
     content: {
         flexGrow: 1,
-        paddingTop: '200px',
+        paddingTop: '5rem',
+        alignItems: 'center'
     },
     homeText: {
-      width: '200px'
+      color: '#bbd884',
+      lineHeight: '140%'
     },
     homeImg: {
-      width: '300px',
-      height: '200px'
+      width: '360px',
+      height: '380px',
     }
 }))

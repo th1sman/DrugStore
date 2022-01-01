@@ -3,8 +3,16 @@ import { commerce } from './lib/commerce';
 //Haciendo importes de componentes como niño grande 🚸
 import  { Products, Navbar, Cart, Checkout, Home, About, Contact } from './components';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ThemeProvider, createTheme } from '@material-ui/core';
 
 
+const theme = createTheme({
+    typography: {
+        fontFamily: [
+            'Pushster',
+            'cursive',
+        ].join(','),
+    },})
 
 const App = () => {
     const [products, setProducts] = useState([]); // useState  = empty array
@@ -66,6 +74,7 @@ const App = () => {
     }, []);
 
     return (
+        <ThemeProvider theme={theme}>
         <Router>
       <div  style={{ display: 'flex'}}>
         <Navbar totalItems={cart.total_items}>
@@ -86,6 +95,7 @@ const App = () => {
         </Routes>
       </div>
     </Router>
+    </ThemeProvider>
     )
 }
  
