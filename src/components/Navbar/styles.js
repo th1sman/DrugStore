@@ -6,6 +6,7 @@ export default makeStyles((theme) => ({
   appBar: {
     boxShadow: 'none',
     borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+    backgroundColor: '#feb7b1',
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
@@ -16,13 +17,17 @@ export default makeStyles((theme) => ({
     alignItems: 'center',
     display: 'flex',
     textDecoration: 'none',
+    color: '#0f0909'
   },
   Link: {
+    color: '#0f0909',
     textDecoration: 'none',
     padding: '15px',
   },
   image: {
     marginRight: '10px',
+    width: '60px',
+    height: '70px'
   },
   menuButton: {
     marginRight: theme.spacing(2),

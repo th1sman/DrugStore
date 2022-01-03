@@ -29,6 +29,7 @@ const HomesubTitle = styled(Typography)(({ theme}) => ({
 const Home = () => {
     const classes = useStyles();
     return (
+      <main className={classes.root}>
         <Container className={classes.content}>
         <Grid container spacing={1}>
         <Grid item xs={4} md={8}>
@@ -46,6 +47,7 @@ const Home = () => {
         </Grid>
       </Grid>
       </Container>
+      </main>
     )
 };
 

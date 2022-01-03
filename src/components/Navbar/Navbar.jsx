@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { AppBar, Toolbar, IconButton, Badge, MenuItem, Menu, Typography } from '@material-ui/core'
 import { ShoppingCart } from '@material-ui/icons'
 import useStyles from './styles';
-import logo from '../../assests/KatStoreLogo.png'
+import logo from '../../assests/KatOnlineLogo.png'
 import { Link, useLocation } from 'react-router-dom'
 
 
@@ -41,17 +41,14 @@ const Navbar = ({ totalItems }) => {
         <p>Cart</p>
      </MenuItem>
       </Menu>
-    )
+    );
     
     return (
         <>
-          <AppBar position="fixed" className={classes.AppBar} color="inherit">
+          <AppBar position="fixed" className={classes.appBar}>
             <Toolbar>
               <Link to="/" className={classes.title}>
-                <Typography variant="h6" color="inherit">
-                    <img src={logo} alt="Commerce.js" height="35px" className={classes.image} />
-                    Kat!
-                </Typography> 
+                    <img src={logo} alt="KatOnline.cl" className={classes.image} /> 
                 </Link >
                 <Link to="/productos" className={classes.Link}>
                   <Typography variant="h6">Productos</Typography>

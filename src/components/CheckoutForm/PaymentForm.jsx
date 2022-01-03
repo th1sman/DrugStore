@@ -1,13 +1,14 @@
 import React from 'react'
 import { Typography, Button, Divider } from '@material-ui/core'
 import { Elements, CardElement, ElementsConsumer } from '@stripe/react-stripe-js'
+
 import { loadStripe } from '@stripe/stripe-js';
 
 import Review from './Review'
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
 
-const PaymentForm = ({ checkoutToken, shippingData, backStep, onCaptureCheckOut, nextStep, timeout }) => {
+const PaymentForm = ({ checkoutToken, shippingData, backStep, nextStep, onCaptureCheckOut }) => {
 
     const handleSubmit = async (event, elements, stripe) => {
         event.preventDefault()
@@ -35,7 +36,6 @@ const PaymentForm = ({ checkoutToken, shippingData, backStep, onCaptureCheckOut,
               };
 
             onCaptureCheckOut(checkoutToken.id, orderData)
-            timeout()
             nextStep()
         }
 
