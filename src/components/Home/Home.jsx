@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { Container, Box, Typography, Paper } from '@material-ui/core'
+import { Container, Box, Typography, Paper, CssBaseline } from '@material-ui/core'
 import { styled } from '@mui/material/styles';
 import useStyles from './styles'
 import { Grid } from "@material-ui/core";
@@ -16,7 +16,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const HomeTitle = styled(Typography)(({theme}) => ({
   lineHeight: '100%',
-  fontSize: '2rem',
+  fontSize: 25,
   alignItems: 'start',
   color: '#6f6596'
 }))
@@ -29,10 +29,11 @@ const HomesubTitle = styled(Typography)(({ theme}) => ({
 const Home = () => {
     const classes = useStyles();
     return (
-      <main className={classes.root}>
+      <>
+      <CssBaseline />
         <Container className={classes.content}>
-        <Grid container spacing={1}>
-        <Grid item xs={4} md={8}>
+        <Grid container>
+        <Grid item xs={12} md={8}>
           <Item>
             <HomeTitle>
             una marca chilena de ropa sin estereotipos de género
@@ -47,7 +48,7 @@ const Home = () => {
         </Grid>
       </Grid>
       </Container>
-      </main>
+      </>
     )
 };
 

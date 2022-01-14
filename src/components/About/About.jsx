@@ -1,19 +1,26 @@
 import React from 'react'
-import { Container, Box, Typography } from '@material-ui/core'
+import { Container, Box, Typography, Grid } from '@material-ui/core'
 import useStyles from './styles'
+import { styled } from '@mui/material/styles';
 
 
+
+const Item = styled(Box)(({ theme }) => ({
+    
+}))
 
 const About = () => {
 
     const classes = useStyles();
 
     return (
-        <>
-           <Container className={classes.content} maxWidth="sm">
-            <Typography variant='h6'>About page</Typography>
+        <main className={classes.content}>
+           <Container className={classes.aboutContainer}>
+                <Grid>
+                    
+                </Grid>
            </Container>
-        </>
+        </main>
     )
 }
 
