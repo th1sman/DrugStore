@@ -26,6 +26,7 @@ const App = () => {
 
         const { data } = await commerce.products.list(); // data = products
         setProducts(data); //products populated
+
     }
 
     const fetchCart = async () => {
@@ -84,11 +85,9 @@ const App = () => {
                         <Route path="/" element={<Home />} /> 
                         <Route path="/about" element={<About />} />
                         <Route path="/contact" element={<Contact />} />
-                        <Route path="/productos" element={<Products products={products} onAddToCart={handleAddToCart} handleUpdateCartQty />}>
-                        </Route>
-                        <Route path="/productos/:id" element={<ProductDetail products={products} />} />
-                        <Route path="/cart" element={<Cart cart={cart} onUpdateCartQty={handleUpdateCartQty} onRemoveFromCart={handleRemoveFromCart} onEmptyCart={handleEmptyCart} />}>
-                        </Route>
+                        <Route path="/productos" element={<Products products={products} onAddToCart={handleAddToCart} handleUpdateCartQty />} />
+                        <Route path="/productos/:productID" element={<ProductDetail products={products} onAddToCart={handleAddToCart} />} />
+                        <Route path="/cart" element={<Cart cart={cart} onUpdateCartQty={handleUpdateCartQty} onRemoveFromCart={handleRemoveFromCart} onEmptyCart={handleEmptyCart} />} />
                         <Route path="/checkout" element={<Checkout cart={cart} order={order} onCaptureCheckOut={handleCaptureCheckOut} error={errorMessage} />}>
                         </Route>
                     </Routes>

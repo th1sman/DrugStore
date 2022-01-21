@@ -1,47 +1,84 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { styled } from '@mui/material/styles';
-import { Container, Box, Typography, Grid, Paper, Card, CardHeader, CardMedia } from '@material-ui/core'
+import { Container, Box, Typography, Grid, Paper, Card, CardContent, CardMedia, CardActionArea, Divider, Button } from '@material-ui/core'
 import useStyles from './styles'
-
-
-const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    padding: theme.spacing(15),
-    textAlign: 'start',
-    color: theme.palette.text.secondary,
-    
-}))
-
-const DetailTitle = styled(Typography)(({ theme }) => ({
-    lineHeight: '100%',
-    fontSize: '2rem',
-    alignItems: 'start',
-    color: '#6f6596'
-}))
+import StraightenIcon from '@mui/icons-material/Straighten';
 
 
 
-export const ProductDetail = ({ product }) => {
+
+export const ProductDetail = ({ products, onAddToCart }) => {
     const classes = useStyles()
-    const { id } = useParams()
-    
+    const HandleAddToCart = () => onAddToCart(product.id, 1);
+    const [ variantGroups, setVariantGroups ] = useState([])
+    const { productID } = useParams()
+    const product = products.find(product => product.id === productID)
+    if (!product) return null
+
+    console.log(product)
+
+         // Colores, tallas y fotos
+         const siZes = product.variant_groups[0].options
+         const piCs = product.assets
+
+         console.log(siZes)
+
     return (
-        <main className={classes.root}>
-            <Container>
-                <Grid container spacing={1}>
-                    <Grid item xs={4} md={8} lg={12}>
-                        <Item>
-                            <Card>
-                                <CardHeader>
-                                    Nombre del producto
-                                </CardHeader>
-                                <CardMedia  />
-                            </Card>
-                        </Item>
-                    </Grid>
-                </Grid>
-            </Container>
-        </main>
+        <Container className={classes.root}>
+            <Grid item xs={12} md={6} lg={5} className={classes.item} >
+                <CardActionArea>
+                    <Card sx={{ display: 'flex' }} className={classes.item}>
+                        <CardContent sx={{ flex: 1 }}>
+                            <CardMedia
+                                component="img"
+                                className={classes.media}
+                                image={product.image.url}
+                            />
+                        </CardContent>
+                    </Card>
+                </CardActionArea>
+            </Grid>
+            <Paper item className={classes.item}>
+            <form>
+                <h3>{product.name}</h3>
+                <h4>Precio : {product.price.formatted_with_code}</h4>
+                <Divider />    
+                <Typography>
+                    Talla
+                </Typography>
+               
+                <Grid className={classes.buttonGroup}>
+                {siZes.map((size) => (
+                    <div   
+                    key={[size.id]}>
+                    <Button className={classes.button} variant='outlined'>{size.name}</Button>
+                    </div>
+                ))}   
+                </Grid> 
+                <Divider/>
+                <Typography>
+                    Color : Rosado
+                </Typography>
+                <Grid className={classes.picGroup}>
+                {piCs.map((pic) => (
+                    <div key={[pic.id]}>
+                        <Button variant='outlined'> 
+                        <img className={classes.pictures} src={pic.url}>
+                        </img> 
+                        </Button> 
+                    </div>
+                ))}   
+                </Grid>    
+                <Button 
+                varinat='contained'
+                fullWidth
+                onClick={HandleAddToCart}>Agregar al carro</Button> 
+            </form>
+            </Paper>
+        </Container>
     )
 }
+
+
+export default ProductDetail

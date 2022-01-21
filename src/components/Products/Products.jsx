@@ -5,7 +5,7 @@ import useStyles from './styles';
 import Product from "./Product/Product";
 
 
-const Products = ({ products, onAddToCart }) => { 
+const Products = ({ products, onAddToCart, product }) => { 
     const classes = useStyles();
 
 
@@ -13,7 +13,7 @@ const Products = ({ products, onAddToCart }) => {
         <main className={classes.content}>
         <div className={classes.toolbar} />
         <Grid container justifyContent="center" spacing={10}>
-            {products.map((product) => (
+            {products.map((product) => (    
                 <Grid item key={product.id} xs={12} sm={6} md={4} lg={4}>
                     <Product product={product} onAddToCart={onAddToCart} />
                 </Grid>
