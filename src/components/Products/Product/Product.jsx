@@ -32,7 +32,7 @@ const Product = ({ product, onAddToCart }) => {
             <CardContent>
                 <div className={clasess.cardContent}>
                     <Typography variant="h5">
-                        {product.price.formatted_with_symbol}
+                        {product.price.formatted_with_code}
                     </Typography>
                 </div>
                 <Divider />
