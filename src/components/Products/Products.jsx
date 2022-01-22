@@ -1,14 +1,16 @@
 import { Grid } from "@material-ui/core";
+import Spinner from '../Spinner/Spinner'
 
 
 import useStyles from './styles';
 import Product from "./Product/Product";
 
 
-const Products = ({ products, onAddToCart, product }) => { 
+const Products = ({ products, onAddToCart }) => { 
+
+    if (!products.length) return  <Spinner />
+
     const classes = useStyles();
-
-
     return (
         <main className={classes.content}>
         <div className={classes.toolbar} />

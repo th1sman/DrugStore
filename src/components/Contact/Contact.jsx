@@ -10,7 +10,7 @@ const Contact = () => {
     return (
 
         <>
-             <Container className={classes.content} maxWidth="sm">
+             <Container className={classes.content}>
              <Typography variant='h6'>Contact page</Typography>
              </Container>
         </>
