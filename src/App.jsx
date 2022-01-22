@@ -33,8 +33,10 @@ const App = () => {
         setCart(await commerce.cart.retrieve()) //get the cart and set the State.
     }
 
-    const handleAddToCart = async (productId, quantity) => { //this is the cart After the product has been added
-        const item = await commerce.cart.add(productId, quantity);
+    const handleAddToCart = async (productId, quantity, option = {}) => { //this is the cart After the product has been added
+        const item = await commerce.cart.add(productId, quantity, {
+            ...option,
+        });
         setCart(item.cart);
     }
 
