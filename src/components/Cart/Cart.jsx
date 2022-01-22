@@ -2,6 +2,7 @@ import React from 'react'
 import { Container, Typography, Button, Grid } from '@material-ui/core';
 import useStyles from './styles';
 import { Link } from 'react-router-dom'
+import Spinner from '../Spinner/Spinner'
 import CartItem from './CartItem/CartItem';
 
 
@@ -14,11 +15,11 @@ const Cart = ({ cart, onUpdateCartQty, onRemoveFromCart, onEmptyCart }) => {
 
     const renderEmptyCart = () => (
         <Typography variant="subtitle1">No tienes productos en tu carrito,
-            <Link className={classes.link} to="/">Haz click aqui para agregar algunos</Link>
+            <Link to="/productos" className={classes.link} >Haz click aqui para agregar algunos</Link>
         </Typography>
     );
 
-    if(!cart.line_items) return 'Loading';
+    if(!cart.line_items) return <Spinner />;
 
     const renderCart = () => (
         <>

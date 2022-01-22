@@ -6,7 +6,6 @@ import useStyles from './styles'
 import { Grid } from "@material-ui/core";
 import HomeImg from '../../assests/HomeImg.png'
 
-
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(15),

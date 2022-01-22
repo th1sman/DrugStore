@@ -6,6 +6,8 @@ import { ProductDetail }   from './components/Products/Product/ProductDetail/Pro
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@material-ui/core';
 
+import './App.css'
+
 
 const theme = createTheme({
     typography: {
@@ -79,14 +81,15 @@ const App = () => {
     }, []);
 
     return (
+        <div className="App">
         <ThemeProvider theme={theme}>
             <Router>
                     <Navbar totalItems={cart.total_items}>
                     </Navbar>
                     <Routes>
                         <Route path="/" element={<Home />} /> 
-                        <Route path="/about" element={<About />} />
-                        <Route path="/contact" element={<Contact />} />
+                        <Route path="/About" element={<About />} />
+                        <Route path="/contacto" element={<Contact />} />
                         <Route path="/productos" element={<Products products={products} onAddToCart={handleAddToCart} handleUpdateCartQty />} />
                         <Route path="/productos/:productID" element={<ProductDetail products={products} onAddToCart={handleAddToCart} />} />
                         <Route path="/cart" element={<Cart cart={cart} onUpdateCartQty={handleUpdateCartQty} onRemoveFromCart={handleRemoveFromCart} onEmptyCart={handleEmptyCart} />} />
@@ -95,6 +98,7 @@ const App = () => {
                     </Routes>
             </Router>
         </ThemeProvider>
+        </div>
     )
 }
 
