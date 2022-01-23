@@ -130,7 +130,7 @@ export const ProductDetail = ({ onAddToCart }) => {
             Talla : 
             {product.variant_groups?.length
              ? product.variant_groups[1].options?.map((option) => (
-              <Button>
+              <Button variant="outlined">
                 {option.name}
               </Button>
             ))

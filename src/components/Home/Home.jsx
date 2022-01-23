@@ -5,11 +5,13 @@ import { styled } from '@mui/material/styles';
 import useStyles from './styles'
 import { Grid } from "@material-ui/core";
 import HomeImg from '../../assests/HomeImg.png'
+import KatContact from '../../assests/KatContact.png'
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(15),
     textAlign: 'start',
+    backgroundImage: `url(${KatContact})`,
     color: theme.palette.text.secondary,    
 }))
 
@@ -28,7 +30,7 @@ const HomesubTitle = styled(Typography)(({ theme}) => ({
 const Home = () => {
     const classes = useStyles();
     return (
-      <>
+      <main className={classes.root}>
       <CssBaseline />
         <Container className={classes.content}>
         <Grid container>
@@ -49,7 +51,7 @@ const Home = () => {
         </Grid>
       </Grid>
       </Container>
-      </>
+      </main>
     )
 };
 

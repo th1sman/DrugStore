@@ -1,17 +1,42 @@
 import { makeStyles } from "@material-ui/core/styles";
 
+
 export default makeStyles ((theme) => ({
+
+    root: {
+        backgroundColor: '#fff0c2',
+        height: '100vh',
+    },
     content: {
         flexGrow: 1,
         paddingTop: '100px',
+        backgroundColor: '#fff0c2'
+
     },
-    cardContact: {
+    contactSection: {
+        display: 'flex',
+        justifyContent: 'center',
+    },
+    contactWrapper: {
+        display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
-        width: '250px',
-        height: '380px',
-        position: 'relative',
+        margin: '30px',
     },
-    iconContact: {
-        width: '190px',
+    item: {
+        paddingTop: '150px'
+    },
+    contactContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    contactTitle: {
+        color: '#1c2237',
+        marginBottom: '24px'
+    },
+    icon: {
+        border: '2px solid green',
+        fontSize: '400px',
     }
 }))

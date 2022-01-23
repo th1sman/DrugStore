@@ -13,12 +13,13 @@ const About = () => {
         ...theme.typography.body2,
         padding: theme.spacing(1),
         textAlign: 'center',
-        height: '450px',
+        height: '350px',
         color: theme.palette.text.secondary,
     }));
 
 
     return (
+        <main className={classes.root}>
         <Container className={classes.content}>
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={2}>
@@ -37,14 +38,12 @@ const About = () => {
                                 Con KAT! sientete lind@ y comod@ a toda hora💖, pues somos una marca chilena sin estereotipos de género, la cual busca una experiencia única de comidad y calidad en ropa✨
                                 ontamos con prendas de confección 100% chilena 🇨🇱 y la mejor calidad, sin etiqueta de género 🏷
                             </Typography>
-                            <Typography variant='subtitle2'>
-                            Lleva tu prenda a todos lados y enamórate de nuestra marca 🌝♥️
-                            </Typography>
                         </Item>
                     </Grid>
                 </Grid>
             </Box>
         </Container>
+        </main>
     )
 }
 
