@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { Container, Box, Typography, Paper, CssBaseline } from '@material-ui/core'
+import { Container,Button, Box, Typography, Paper, CssBaseline } from '@material-ui/core'
 import { styled } from '@mui/material/styles';
 import useStyles from './styles'
 import { Grid } from "@material-ui/core";
@@ -40,6 +40,8 @@ const Home = () => {
             <HomesubTitle>
             every/body is beautiful
             </HomesubTitle>
+            <br />
+            <Button variant="contained" fullWidth color="secondary">Ver Catalogo</Button>
           </Item>
         </Grid>
         <Grid item xs={9} md={4}>
