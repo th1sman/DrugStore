@@ -3,6 +3,10 @@ import aboutPic from '../../assests/aboutPic.jpg'
 
 
 export default makeStyles((theme) => ({
+    root: {
+        backgroundColor: '#fff0c2',
+        height: '100vh',
+    },
     content: {
         paddingTop: 85,
         justifyContent: 'space-around',

@@ -8,7 +8,6 @@ import useStyles from './styles'
 
 const Product = ({ product, onAddToCart }) => {
 
-    console.log(product)
     const clasess = useStyles();
     const navigate = useNavigate()
     const HandleAddToCart = () => onAddToCart(product.id, 1);

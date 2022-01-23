@@ -2,8 +2,3 @@
     background: '#fff0c2';
 }
 
-main {
-    border-radius: 3px;
-    display: block;
-    scroll-snap-type: y mandatory;
-}

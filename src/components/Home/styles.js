@@ -1,6 +1,10 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles ((theme) => ({
+    root: {
+      backgroundColor: '#fff0c2',
+      height: '100vh',
+    },
     content: {
         paddingTop: 85,
     },

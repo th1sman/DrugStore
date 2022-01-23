@@ -1,15 +1,17 @@
 
 import React from 'react'
-import { Container, Box, Typography, Paper, CssBaseline } from '@material-ui/core'
+import { Container,Button, Box, Typography, Paper, CssBaseline } from '@material-ui/core'
 import { styled } from '@mui/material/styles';
 import useStyles from './styles'
 import { Grid } from "@material-ui/core";
 import HomeImg from '../../assests/HomeImg.png'
+import KatContact from '../../assests/KatContact.png'
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(15),
     textAlign: 'start',
+    backgroundImage: `url(${KatContact})`,
     color: theme.palette.text.secondary,    
 }))
 
@@ -28,7 +30,7 @@ const HomesubTitle = styled(Typography)(({ theme}) => ({
 const Home = () => {
     const classes = useStyles();
     return (
-      <>
+      <main className={classes.root}>
       <CssBaseline />
         <Container className={classes.content}>
         <Grid container>
@@ -40,6 +42,8 @@ const Home = () => {
             <HomesubTitle>
             every/body is beautiful
             </HomesubTitle>
+            <br />
+            <Button variant="contained" fullWidth color="secondary">Ver Catalogo</Button>
           </Item>
         </Grid>
         <Grid item xs={9} md={4}>
@@ -47,7 +51,7 @@ const Home = () => {
         </Grid>
       </Grid>
       </Container>
-      </>
+      </main>
     )
 };
 

@@ -45,7 +45,7 @@ const Cart = ({ cart, onUpdateCartQty, onRemoveFromCart, onEmptyCart }) => {
 
 
     return (
-        <Container>
+        <Container className={classes.root}>
             <div className={classes.toolbar} />
             <Typography className={classes.title} variant="h3" gutterBottom>Tu Carrito</Typography>
             {  !cart.line_items.length ? renderEmptyCart() : renderCart() }
