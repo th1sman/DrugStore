@@ -1,5 +1,5 @@
 import { Grid } from "@material-ui/core";
-import Spinner from "../Spinner/Spinner";
+import Spinner from "../../components/Spinner/Spinner";
 
 import useStyles from "./styles";
 import Product from "./Product/Product";

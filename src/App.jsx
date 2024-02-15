@@ -1,29 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { commerce } from "./lib/commerce";
-//Haciendo importes de componentes como niño grande 🚸
-import {
-  Products,
-  Navbar,
-  Cart,
-  Checkout,
-  Home,
-  About,
-  Contact,
-} from "./components";
-import { ProductDetail } from "./components/Products/Product/ProductDetail/ProductDetail";
+import Navbar from "./components/Navbar/Navbar";
+import CheckoutForm from "./components/CheckoutForm/Checkout/Checkout";
+import Cart from "./components/Cart/Cart";
+import { ProductDetail } from "./Pages/Products/Product/ProductDetail/ProductDetail";
+import { Products } from "./Pages";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core";
 import theme from "./theme";
 import "./App.css";
 
 const App = () => {
-  const [products, setProducts] = useState([]); // useState  = empty array
-  const [cart, setCart] = useState({}); // useState = empty object.
+  const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState({});
   const [order, setOrder] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
 
   const fetchProducts = async () => {
-    const { data } = await commerce.products.list(); // data = products
+    const { data } = await commerce.products.list();
     setProducts(data); //products populated
   };
 
@@ -85,9 +79,6 @@ const App = () => {
         <Router>
           <Navbar totalItems={cart.total_items}></Navbar>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/About" element={<About />} />
-            <Route path="/contacto" element={<Contact />} />
             <Route
               path="/productos"
               element={
@@ -121,7 +112,7 @@ const App = () => {
             <Route
               path="/checkout"
               element={
-                <Checkout
+                <CheckoutForm
                   cart={cart}
                   order={order}
                   onCaptureCheckOut={handleCaptureCheckOut}
