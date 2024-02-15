@@ -80,7 +80,7 @@ const App = () => {
           <Navbar totalItems={cart.total_items}></Navbar>
           <Routes>
             <Route
-              path="/productos"
+              path="/"
               element={
                 <Products
                   products={products}
