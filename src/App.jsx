@@ -3,6 +3,7 @@ import { commerce } from "./lib/commerce";
 import Navbar from "./components/Navbar/Navbar";
 import CheckoutForm from "./components/CheckoutForm/Checkout/Checkout";
 import Cart from "./components/Cart/Cart";
+import About from "./Pages/About/About";
 import { ProductDetail } from "./Pages/Products/Product/ProductDetail/ProductDetail";
 import { Products } from "./Pages";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -89,6 +90,8 @@ const App = () => {
                 />
               }
             />
+            <Route path="/nosotros" element={<About />} />
+
             <Route
               path="/productos/:productID"
               element={

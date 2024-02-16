@@ -22,14 +22,7 @@ const Product = ({ product, onAddToCart }) => {
 
   return (
     <Card className={clasess.root}>
-      <CardHeader
-        action={
-          <IconButton>
-            <FavoriteIcon />
-          </IconButton>
-        }
-        title={product.name}
-      ></CardHeader>
+      <CardHeader title={product.name}></CardHeader>
       <CardActionArea
         onClick={() => {
           navigate(`/productos/${product.id}`);
