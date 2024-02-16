@@ -4,16 +4,15 @@ export default makeStyles((theme) => ({
   container: {
     paddingTop: 100,
     alignItems: "center",
+    width: "100%",
+    backgroundColor: "#A3C6D0",
   },
   root: {
-    maxWidth: 345,
-    margin: theme.spacing(2),
+    maxWidth: 400,
+    margin: theme.spacing(5),
     borderRadius: theme.shape.borderRadius,
-    boxShadow: theme.shadows[3],
     transition: "0.3s",
-    "&:hover": {
-      boxShadow: theme.shadows[6],
-    },
+    "&:hover": {},
   },
   media: {
     height: 140,

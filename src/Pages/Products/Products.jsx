@@ -18,8 +18,8 @@ const Products = ({ products, onAddToCart }) => {
             className={classes.root}
             xs={12}
             sm={6}
-            md={4}
-            lg={12}
+            md={12}
+            lg={4}
           >
             <Product product={product} onAddToCart={onAddToCart} />
           </Grid>

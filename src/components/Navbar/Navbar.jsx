@@ -33,7 +33,12 @@ const Navbar = ({ totalItems }) => {
       <AppBar position="fixed" className={classes.appBar}>
         <Container>
           <Toolbar disableGutters>
-            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: { xs: "flex", md: "none", alignItems: "center" },
+              }}
+            >
               <IconButton
                 size="medium"
                 aria-controls="menu-appbar"
@@ -58,16 +63,9 @@ const Navbar = ({ totalItems }) => {
                 }}
               >
                 <MenuItem>
-                  <Link to="/productos">
-                    <Typography>Productos</Typography>
-                  </Link>
+                  <Typography>Sobre Nosotros</Typography>
                 </MenuItem>
-                <MenuItem>
-                  <Typography>Nosotrxs</Typography>
-                </MenuItem>
-                <MenuItem>
-                  <Typography>Contacto</Typography>
-                </MenuItem>
+
                 <MenuItem>
                   {location.pathname === "/" && (
                     <IconButton
@@ -84,29 +82,22 @@ const Navbar = ({ totalItems }) => {
                 </MenuItem>
               </Menu>
             </Box>
-            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            <Box sx={{ display: "flex", width: "100%" }}>
               <Link to="/" className={classes.Link}>
                 <Typography
                   variant="h6"
-                  noWrap
                   component="div"
-                  className={classes.title}
                   sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
                 >
-                  KatOnline
+                  Agua Pura San Jose
                 </Typography>
               </Link>
-              <Link to="/productos" className={classes.Link}>
-                <Typography>Productos</Typography>
-              </Link>
-              <Link to="/about" className={classes.Link}>
-                <Typography>Nosotrxs</Typography>
-              </Link>
-              <Link to="/contacto" className={classes.Link}>
-                <Typography>Contacto</Typography>
+              <Box className={classes.grow} />
+
+              <Link to="/nosotros" className={classes.Link}>
+                <Typography>Sobre Nosotros</Typography>
               </Link>
 
-              <div className={classes.grow} />
               <IconButton
                 component={Link}
                 to="/cart"
