@@ -19,7 +19,7 @@ const Products = ({ products, onAddToCart }) => {
             xs={12}
             sm={6}
             md={12}
-            lg={4}
+            lg={12}
           >
             <Product product={product} onAddToCart={onAddToCart} />
           </Grid>

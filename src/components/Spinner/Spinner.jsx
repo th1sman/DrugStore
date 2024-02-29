@@ -1,15 +1,6 @@
+import "./styles.css";
+import logo from "../../assests/Agua_pura.png";
 
-import "./styles.css"
-import logo from '../../assests/KatOnlineLogo.png'
+const Spinner = () => <div className="spinner"></div>;
 
-
-const Spinner = () => (
-    <div className="spinner">
-        <img 
-        className="logo"
-        src={logo}
-        />
-    </div>
-)
-
-export default Spinner
+export default Spinner;

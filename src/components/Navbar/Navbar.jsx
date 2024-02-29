@@ -9,24 +9,57 @@ import {
   Typography,
   Box,
   Container,
-  Button,
 } from "@material-ui/core";
+import { styled } from "@mui/system";
 import { ShoppingCart } from "@material-ui/icons";
 import MenuIcon from "@mui/icons-material/Menu";
 import useStyles from "./styles";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+const NavbarStyledLink = styled(Link)({
+  textDecoration: "none",
+  color: "inherit",
+});
+
+const Grow = styled(Box)({
+  flexGrow: 1,
+});
 
 const Navbar = ({ totalItems }) => {
   const classes = useStyles();
-  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
-  const handleOpenNavMenu = (e) => {
-    setAnchorElNav(e.currentTarget);
+  const mobileMenuId = "primary-search-account-menu-mobile";
+
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{ vertical: "top", horizontal: "right" }}
+      open={!!mobileMoreAnchorEl}
+      onClose={handleMobileMenuClose}
+    >
+      <MenuItem>
+        <IconButton
+          component={Link}
+          to="/cart"
+          aria-label="Show cart items"
+          color="inherit"
+        >
+          <Badge badgeContent={totalItems} color="secondary">
+            <ShoppingCart />
+          </Badge>
+        </IconButton>
+        <p>Cart</p>
+      </MenuItem>
+    </Menu>
+  );
 
   return (
     <>
@@ -43,21 +76,21 @@ const Navbar = ({ totalItems }) => {
                 size="medium"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
-                onClick={handleOpenNavMenu}
+                onClick={() => setMobileMoreAnchorEl(!mobileMoreAnchorEl)}
                 color="inherit"
               >
                 <MenuIcon />
               </IconButton>
               <Menu
                 id="menu-appbar"
-                anchorEl={anchorElNav}
+                anchorEl={mobileMoreAnchorEl}
                 anchorOrigin={{
                   vertical: "bottom",
                   horizontal: "left",
                 }}
                 keepMounted
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
+                open={Boolean(mobileMoreAnchorEl)}
+                onClose={handleMobileMenuClose}
                 sx={{
                   display: { xs: "block", md: "none" },
                 }}
@@ -65,50 +98,33 @@ const Navbar = ({ totalItems }) => {
                 <MenuItem>
                   <Typography>Sobre Nosotros</Typography>
                 </MenuItem>
-
-                <MenuItem>
-                  {location.pathname === "/" && (
-                    <IconButton
-                      component={Link}
-                      to="/cart"
-                      aria-label="show cart items"
-                      color="inherit"
-                    >
-                      <Badge badgeContent={totalItems} color="secondary">
-                        <ShoppingCart />
-                      </Badge>
-                    </IconButton>
-                  )}
-                </MenuItem>
+                {renderMobileMenu}
               </Menu>
             </Box>
-            <Box sx={{ display: "flex", width: "100%" }}>
-              <Link to="/" className={classes.Link}>
-                <Typography
-                  variant="h6"
-                  component="div"
-                  sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-                >
-                  Agua Pura San Jose
-                </Typography>
-              </Link>
-              <Box className={classes.grow} />
-
+            <NavbarStyledLink to="/" className={classes.Link}>
+              <Typography
+                variant="h6"
+                component="div"
+                sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+              >
+                Agua Pura San Jose
+              </Typography>
+            </NavbarStyledLink>
+            <Grow>
               <Link to="/nosotros" className={classes.Link}>
                 <Typography>Sobre Nosotros</Typography>
               </Link>
-
-              <IconButton
-                component={Link}
-                to="/cart"
-                aria-label="show cart items"
-                color="inherit"
-              >
-                <Badge badgeContent={totalItems} color="secondary">
-                  <ShoppingCart />
-                </Badge>
-              </IconButton>
-            </Box>
+            </Grow>
+            <IconButton
+              component={Link}
+              to="/cart"
+              aria-label="Show cart items"
+              color="inherit"
+            >
+              <Badge badgeContent={totalItems} color="secondary">
+                <ShoppingCart />
+              </Badge>
+            </IconButton>
           </Toolbar>
         </Container>
       </AppBar>

@@ -9,7 +9,6 @@ import {
   CardActionArea,
 } from "@material-ui/core";
 import { AddShoppingCart } from "@material-ui/icons";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import Divider from "@mui/material/Divider";
 import { useNavigate } from "react-router";
 
