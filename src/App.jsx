@@ -27,12 +27,10 @@ const App = () => {
     setCart(await commerce.cart.retrieve());
   };
 
-  const handleAddToCart = async (productId, quantity, option = {}) => {
+  const handleAddToCart = async (productId, quantity = {}) => {
     try {
-      const { cart: newCart } = await commerce.cart.add(productId, quantity, {
-        ...option,
-      });
-      setCart(newCart);
+      const item = await commerce.cart.add(productId, quantity);
+      setCart(item);
     } catch (err) {
       console.error("Error al agregar el producto al carrito", err);
     }
