@@ -1,2 +1,3 @@
-# katStore
-Proyecto de tienda de ropa Online
+# AdapStore
+
+Proyecto de tienda Online
