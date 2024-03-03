@@ -128,7 +128,7 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <Router>
           <Navbar
-            totalItems={cart && cart.total_items}
+            totalItems={cart.total_items}
             handleDrawerToggle={handleDrawerToggle}
           />
           <Routes>
