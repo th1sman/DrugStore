@@ -24,13 +24,23 @@ const App = () => {
   };
 
   const fetchCart = async () => {
-    setCart(await commerce.cart.retrieve());
+    const cartData = await commerce.cart.retrieve();
+    setCart({
+      total_items: cartData.total_items,
+      subtotal: cartData.subtotal,
+      line_items: cartData.line_items,
+    });
   };
 
   const handleAddToCart = async (productId, quantity = {}) => {
     try {
       const item = await commerce.cart.add(productId, quantity);
-      setCart(item);
+      setCart({
+        ...cart,
+        total_items: cart.total_items + quantity,
+        subtotal: cart.subtotal + item.line_total,
+        line_items: [...cart.line_items, item],
+      });
     } catch (err) {
       console.error("Error al agregar el producto al carrito", err);
     }
@@ -38,10 +48,17 @@ const App = () => {
 
   const handleUpdateCartQty = async (lineItemId, quantity) => {
     try {
-      const { cart: updateCart } = await commerce.cart.update(lineItemId, {
-        quantity,
+      const updatedItems = cart.line_items.map((item) => {
+        if (item.id === lineItemId) {
+          return { ...item, quantity: quantity };
+        }
+        return item;
       });
-      setCart(updateCart);
+
+      setCart({
+        ...cart,
+        line_items: updatedItems,
+      });
     } catch (err) {
       console.error("Error al actualizar al carrito:", err);
     }
@@ -50,7 +67,14 @@ const App = () => {
   const handleRemoveFromCart = async (lineItemId) => {
     try {
       await commerce.cart.remove(lineItemId);
-      fetchCart();
+      const updatedItems = cart.line_items.filter(
+        (item) => item.id !== lineItemId,
+      );
+      setCart({
+        ...cart,
+        total_items: cart.total_items - 1,
+        line_items: updatedItems,
+      });
     } catch (err) {
       console.error("Error al eliminar el producto del carrito:", err);
     }
@@ -59,7 +83,11 @@ const App = () => {
   const handleEmptyCart = async () => {
     try {
       await commerce.cart.empty();
-      setCart({ total_items: 0, line_items: [] });
+      setCart({
+        total_items: 0,
+        subtotal: 0,
+        line_items: [],
+      });
     } catch (err) {
       console.error("Error al vaciar el carrito:", err);
     }
@@ -67,7 +95,11 @@ const App = () => {
 
   const refreshCart = async () => {
     const newCart = await commerce.cart.refresh();
-    setCart(newCart);
+    setCart({
+      total_items: newCart.total_items,
+      subtotal: newCart.subtotal,
+      line_items: newCart.line_items,
+    });
   };
 
   const handleCaptureCheckOut = async (checkoutTokenId, newOrder) => {

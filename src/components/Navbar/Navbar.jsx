@@ -89,7 +89,7 @@ const Navbar = ({ totalItems }) => {
                   variant="h6"
                   noWrap
                   component="div"
-                  classes={classes.title}
+                  className={classes.title}
                   sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
                 >
                   Agua Pura San Jose
