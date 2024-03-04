@@ -8,16 +8,17 @@ import {
   IconButton,
   CardActionArea,
 } from "@material-ui/core";
+import { useCartContext } from "../../../context/cartContext";
 import { AddShoppingCart } from "@material-ui/icons";
 import Divider from "@mui/material/Divider";
 import { useNavigate } from "react-router";
 
 import useStyles from "./styles";
 
-const Product = ({ product, onAddToCart }) => {
+const Product = ({ product }) => {
+  const { handleAddToCart } = useCartContext();
   const clasess = useStyles();
   const navigate = useNavigate();
-  const HandleAddToCart = () => onAddToCart(product.id, 1);
 
   return (
     <Card className={clasess.root}>
@@ -47,7 +48,10 @@ const Product = ({ product, onAddToCart }) => {
         />
       </CardContent>
       <CardActions disableSpacing className={clasess.CardActions}>
-        <IconButton aria-label="Add to Cart" onClick={HandleAddToCart}>
+        <IconButton
+          aria-label="Add to Cart"
+          onClick={() => handleAddToCart(product.id, 1)}
+        >
           <AddShoppingCart />
         </IconButton>
       </CardActions>

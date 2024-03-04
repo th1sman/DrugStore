@@ -1,24 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Container, Typography, Button, Grid } from "@material-ui/core";
 import useStyles from "./styles";
 import { Link } from "react-router-dom";
 import CartItem from "./CartItem/CartItem";
+import { useCartContext } from "../../context/cartContext";
 
-const Cart = ({ cart, onUpdateCartQty, onRemoveFromCart, onEmptyCart }) => {
+const Cart = () => {
   const classes = useStyles();
 
-  const [isCartEmpty, setIsCartEmpty] = useState(
-    !(cart.line_items && cart.line_items.length > 0),
-  );
+  const { cart, handleUpdateCartQty, handleRemoveFromCart, handleEmptyCart } =
+    useCartContext();
 
-  const handleEmptyCart = () => {
-    onEmptyCart();
-    setIsCartEmpty(true);
-  };
-
-  useEffect(() => {
-    setIsCartEmpty(!(cart.line_items && cart.line_items.length > 0));
-  }, [cart.line_items]);
+  const isCartEmpty =
+    !cart || !Array.isArray(cart.line_items) || cart.line_items.length === 0;
 
   const renderEmptyCart = () => (
     <Typography variant="subtitle1">
@@ -44,8 +38,8 @@ const Cart = ({ cart, onUpdateCartQty, onRemoveFromCart, onEmptyCart }) => {
               <Grid item xs={12} sm={4} key={lineItem.id}>
                 <CartItem
                   item={lineItem}
-                  onUpdateCartQty={onUpdateCartQty}
-                  onRemoveFromCart={onRemoveFromCart}
+                  onUpdateCartQty={handleUpdateCartQty}
+                  onRemoveFromCart={handleRemoveFromCart}
                 />
               </Grid>
             ))}
@@ -61,7 +55,7 @@ const Cart = ({ cart, onUpdateCartQty, onRemoveFromCart, onEmptyCart }) => {
                 type="button"
                 variant="contained"
                 color="secondary"
-                onClick={handleEmptyCart}
+                onClick={() => handleEmptyCart()}
               >
                 Vaciar carrito
               </Button>

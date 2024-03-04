@@ -14,9 +14,16 @@ import { ShoppingCart } from "@material-ui/icons";
 import MenuIcon from "@mui/icons-material/Menu";
 import useStyles from "./styles";
 import { Link } from "react-router-dom";
-
-const Navbar = ({ totalItems }) => {
+import { useCartContext } from "../../context/cartContext";
+const Navbar = () => {
   const classes = useStyles();
+  const { cart } = useCartContext();
+
+  const totalItems =
+    cart && Array.isArray(cart.line_items)
+      ? cart.line_items.reduce((total, item) => total + item.quantity, 0)
+      : 0;
+
   const [anchorElNav, setAnchorElNav] = useState(null);
 
   const handleOpenNavMenu = (e) => {
@@ -67,20 +74,6 @@ const Navbar = ({ totalItems }) => {
                 <MenuItem>
                   <Typography>Contacto</Typography>
                 </MenuItem>
-                <MenuItem>
-                  {location.pathname === "/" && (
-                    <IconButton
-                      component={Link}
-                      to="/cart"
-                      aria-label="show cart items"
-                      color="inherit"
-                    >
-                      <Badge badgeContent={totalItems} color="secondary">
-                        <ShoppingCart />
-                      </Badge>
-                    </IconButton>
-                  )}
-                </MenuItem>
               </Menu>
             </Box>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
@@ -112,7 +105,11 @@ const Navbar = ({ totalItems }) => {
                 aria-label="show cart items"
                 color="inherit"
               >
-                <Badge badgeContent={totalItems} color="secondary">
+                <Badge
+                  badgeContent={totalItems}
+                  overlap="rectangular"
+                  color="secondary"
+                >
                   <ShoppingCart />
                 </Badge>
               </IconButton>
