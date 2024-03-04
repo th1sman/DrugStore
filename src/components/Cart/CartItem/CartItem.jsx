@@ -7,15 +7,14 @@ import {
   CardContent,
   CardMedia,
 } from "@material-ui/core";
+import { useCartContext } from "../../../context/cartContext";
 import useStyles from "./styles";
 
-const CartItem = ({ item, onUpdateCartQty, onRemoveFromCart }) => {
+const CartItem = ({ item }) => {
   const classes = useStyles();
 
-  const handleUpdateCartQty = (lineItemId, newQuantity) =>
-    onUpdateCartQty(lineItemId, newQuantity);
+  const { handleUpdateCartQty, handleRemoveFromCart } = useCartContext();
 
-  const handleRemoveFromCart = (lineItemId) => onRemoveFromCart(lineItemId);
   return (
     <Card>
       <CardMedia
@@ -34,7 +33,9 @@ const CartItem = ({ item, onUpdateCartQty, onRemoveFromCart }) => {
           <Button
             type="button"
             size="small"
-            onClick={() => handleUpdateCartQty(item.id, item.quantity - 1)}
+            onClick={() =>
+              handleUpdateCartQty(item.id, Math.max(0, item.quantity - 1))
+            }
           >
             -
           </Button>

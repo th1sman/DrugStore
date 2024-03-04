@@ -1,13 +1,17 @@
 import { Grid } from "@material-ui/core";
 import Spinner from "../../components/Spinner/Spinner";
+import { useCartContext } from "../../context/cartContext";
 
 import useStyles from "./styles";
 import Product from "./Product/Product";
 
-const Products = ({ products, onAddToCart }) => {
+const Products = ({ products }) => {
+  const classes = useStyles();
+
+  const { handleAddToCart } = useCartContext();
+
   if (!products.length) return <Spinner />;
 
-  const classes = useStyles();
   return (
     <div>
       <Grid container justifyContent="center" className={classes.container}>
@@ -21,7 +25,7 @@ const Products = ({ products, onAddToCart }) => {
             md={12}
             lg={12}
           >
-            <Product product={product} onAddToCart={onAddToCart} />
+            <Product product={product} onAddToCart={handleAddToCart} />
           </Grid>
         ))}
       </Grid>
