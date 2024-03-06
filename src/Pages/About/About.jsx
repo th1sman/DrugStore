@@ -2,14 +2,14 @@ import React from "react";
 import { Container, Paper, Box, Typography, Grid } from "@material-ui/core";
 import useStyles from "./styles";
 import { styled } from "@mui/material/styles";
-import aboutPic from "../../assests/Agua_pura.png";
+import aboutPic from "../../assests/about.png";
 
 const About = () => {
   const classes = useStyles();
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
-    padding: theme.spacing(1),
+    padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
   }));

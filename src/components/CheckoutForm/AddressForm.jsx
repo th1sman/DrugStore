@@ -11,8 +11,9 @@ import { useForm, FormProvider } from "react-hook-form";
 import { Link } from "react-router-dom";
 import FormInput from "./CustomTextField";
 import { commerce } from "../../lib/commerce";
+import { useCheckOutContext } from "../../context/checkOutContext";
 
-const AddressForm = ({ checkoutToken, test }) => {
+const AddressForm = ({ test }) => {
   const [shippingCountries, setShippingCountries] = useState([]);
   const [shippingCountry, setShippingCountry] = useState("");
   const [shippingSubdivisions, setShippingSubdivisions] = useState([]);
@@ -22,39 +23,53 @@ const AddressForm = ({ checkoutToken, test }) => {
 
   const methods = useForm();
 
-  const fetchShippingCountries = async (checkoutTokenId) => {
-    const { countries } =
-      await commerce.services.localeListShippingCountries(checkoutTokenId);
+  const checkoutToken = useCheckOutContext();
 
-    setShippingCountries(countries);
-    setShippingCountry(Object.keys(countries)[0]);
+  const fetchShippingCountries = async () => {
+    try {
+      const { countries } = await commerce.services.localeListShippingCountries(
+        checkoutToken.id,
+      );
+      setShippingCountries(countries);
+      setShippingCountry(Object.keys(countries)[0]);
+    } catch (error) {
+      console.error("Error fetching countries", error);
+    }
   };
 
   const fetchSubdivisions = async (countryCode) => {
-    const { subdivisions } =
-      await commerce.services.localeListSubdivisions(countryCode);
+    try {
+      const { subdivisions } =
+        await commerce.services.localeListSubdivisions(countryCode);
 
-    setShippingSubdivisions(subdivisions);
-    setShippingSubdivision(Object.keys(subdivisions)[0]);
+      setShippingSubdivisions(subdivisions);
+      setShippingSubdivision(Object.keys(subdivisions)[0]);
+    } catch (error) {
+      console.error("error fetching subdivisions", error);
+    }
   };
 
-  const fetchShippingOptions = async (
-    checkoutTokenId,
-    country,
-    region = null,
-  ) => {
-    const options = await commerce.checkout.getShippingOptions(
-      checkoutTokenId,
-      { country, region },
-    );
-
-    setShippingOptions(options);
-    setShippingOption(options[0].id);
+  const fetchShippingOptions = async () => {
+    try {
+      const options = await commerce.checkout.getShippingOptions(
+        checkoutToken.id,
+        {
+          country: shippingCountry,
+          region: shippingSubdivision,
+        },
+      );
+      setShippingOptions(options);
+      setShippingOption(options[0].id);
+    } catch (error) {
+      console.error("Error fetching shipping options:", error);
+    }
   };
 
   useEffect(() => {
-    fetchShippingCountries(checkoutToken.id);
-  }, []);
+    if (checkoutToken.id) {
+      fetchShippingCountries();
+    }
+  }, [checkoutToken.id]);
 
   useEffect(() => {
     if (shippingCountry) fetchSubdivisions(shippingCountry);

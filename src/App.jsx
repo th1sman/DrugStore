@@ -12,6 +12,7 @@ import theme from "./theme";
 import "./App.css";
 
 import { CartProvider } from "./context/cartContext";
+import { CheckOutProvider } from "./context/checkOutContext";
 
 const App = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -46,33 +47,35 @@ const App = () => {
 
   return (
     <CartProvider>
-      <div className="App">
-        <ThemeProvider theme={theme}>
-          <Router>
-            <Navbar handleDrawerToggle={handleDrawerToggle} />
-            <Routes>
-              <Route path="/" element={<Products products={products} />} />
-              <Route path="/nosotros" element={<About />} />
+      <CheckOutProvider>
+        <div className="App">
+          <ThemeProvider theme={theme}>
+            <Router>
+              <Navbar handleDrawerToggle={handleDrawerToggle} />
+              <Routes>
+                <Route path="/" element={<Products products={products} />} />
+                <Route path="/nosotros" element={<About />} />
 
-              <Route
-                path="/productos/:productID"
-                element={<ProductDetail products={products} />}
-              />
-              <Route path="/cart" element={<Cart />} />
-              <Route
-                path="/checkout"
-                element={
-                  <CheckoutForm
-                    order={order}
-                    onCaptureCheckOut={handleCaptureCheckOut}
-                    error={errorMessage}
-                  />
-                }
-              ></Route>
-            </Routes>
-          </Router>
-        </ThemeProvider>
-      </div>
+                <Route
+                  path="/productos/:productID"
+                  element={<ProductDetail products={products} />}
+                />
+                <Route path="/cart" element={<Cart />} />
+                <Route
+                  path="/checkout"
+                  element={
+                    <CheckoutForm
+                      order={order}
+                      onCaptureCheckOut={handleCaptureCheckOut}
+                      error={errorMessage}
+                    />
+                  }
+                ></Route>
+              </Routes>
+            </Router>
+          </ThemeProvider>
+        </div>
+      </CheckOutProvider>
     </CartProvider>
   );
 };
