@@ -18,29 +18,30 @@ export const CartProvider = ({ children }) => {
   };
 
   const handleAddToCart = async (productId, quantity) => {
-    const { cart: updatedCart } = await commerce.cart.add(productId, quantity);
-    setCart(updatedCart);
+    const response = await commerce.cart.add(productId, quantity);
+    setCart(response);
   };
 
   const handleUpdateCartQty = async (lineItemId, quantity) => {
     if (quantity > 0) {
-      const { cart: updatedCart } = await commerce.cart.update(lineItemId, {
+      const response = await commerce.cart.update(lineItemId, {
         quantity,
       });
-      setCart(updatedCart);
+
+      setCart(response);
     } else {
       handleRemoveFromCart(lineItemId);
     }
   };
 
   const handleRemoveFromCart = async (lineItemId) => {
-    const { cart: updatedCart } = await commerce.cart.remove(lineItemId);
-    setCart(updatedCart);
+    const response = await commerce.cart.remove(lineItemId);
+    setCart(response);
   };
 
   const handleEmptyCart = async () => {
-    const { cart: updatedCart } = await commerce.cart.empty();
-    setCart(updatedCart);
+    const response = await commerce.cart.empty();
+    setCart(response);
   };
 
   useEffect(() => {

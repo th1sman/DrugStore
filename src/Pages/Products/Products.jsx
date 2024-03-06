@@ -22,7 +22,7 @@ const Products = ({ products }) => {
             className={classes.root}
             xs={12}
             sm={6}
-            md={12}
+            md={4}
             lg={12}
           >
             <Product product={product} onAddToCart={handleAddToCart} />

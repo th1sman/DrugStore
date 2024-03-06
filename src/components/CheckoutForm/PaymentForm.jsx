@@ -1,70 +1,111 @@
-import React from 'react'
-import { Typography, Button, Divider } from '@material-ui/core'
-import { Elements, CardElement, ElementsConsumer } from '@stripe/react-stripe-js'
+import React from "react";
+import { Typography, Button, Divider } from "@material-ui/core";
+import {
+  Elements,
+  CardElement,
+  ElementsConsumer,
+} from "@stripe/react-stripe-js";
 
-import { loadStripe } from '@stripe/stripe-js';
-
-import Review from './Review'
+import { loadStripe } from "@stripe/stripe-js";
+import { useCheckOutContext } from "../../context/checkOutContext";
+import Review from "./Review";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
 
-const PaymentForm = ({ checkoutToken, shippingData, backStep, nextStep, onCaptureCheckOut }) => {
+const PaymentForm = ({
+  shippingData,
+  backStep,
+  nextStep,
+  onCaptureCheckOut,
+}) => {
+  const { checkoutToken, isCheckoutLoading } = useCheckOutContext();
 
-    const handleSubmit = async (event, elements, stripe) => {
-        event.preventDefault()
-
-        if(!stripe || !elements) return
-
-        const cardElement = elements.getElement(CardElement)
-
-        const { error, paymentMethod } = await stripe.createPaymentMethod({ type: 'card', card: cardElement})
-
-        if(error) {
-            console.log(error)
-        } else {
-            const orderData = {
-                line_items: checkoutToken.live.line_items,
-                customer: { firstname: shippingData.firstName, lastname: shippingData.lastName, email: shippingData.email },
-                shipping: { name: 'International', street: shippingData.address1, town_city: shippingData.city, county_state: shippingData.shippingSubdivision, postal_zip_code: shippingData.zip, country: shippingData.shippingCountry },
-                fulfillment: { shipping_method: shippingData.shippingOption },
-                payment: {
-                  gateway: 'stripe',
-                  stripe: {
-                    payment_method_id: paymentMethod.id,
-                  },
-                },
-              };
-
-            onCaptureCheckOut(checkoutToken.id, orderData)
-            nextStep()
-        }
-
-    }
-
+  if (!checkoutToken || !checkoutToken.line_items || isCheckoutLoading) {
+    // Puedes mostrar un mensaje de carga o retornar null si los datos aún no están disponibles
     return (
-        <>
-            <Review checkoutToken={checkoutToken} />
-            <Divider />
+      <Typography variant="subtitle1">
+        Cargando información de pago..
+      </Typography>
+    );
+  }
 
-            <Typography variant="h6" gutterBottom style={{ margin: '20px 0'}}>Metodo de pago</Typography>
-            <Elements stripe={stripePromise}>
-                <ElementsConsumer>
-                    {({ elements, stripe }) => (
-                        <form onSubmit={(e) => handleSubmit(e, elements, stripe)}>
-                            <CardElement />
-                            <br /> <br/>
-                            <div style={{ display: 'flex', justifyContent: "space-between"}}>
-                                <Button variant="outlined" onClick={backStep}>Volver</Button>
-                                <Button type="submit" variant="contained" disabled={!stripe} color="primary">
-                                  Pagar { checkoutToken.live.subtotal.formatted_width_symbol }  
-                                </Button>
-                            </div>
-                        </form>
-                    )}
-                </ElementsConsumer>
-            </Elements>
-        </>
-    )
-}
+  const handleSubmit = async (event, elements, stripe) => {
+    event.preventDefault();
 
-export default PaymentForm
+    if (!stripe || !elements) return;
+
+    const cardElement = elements.getElement(CardElement);
+
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card: cardElement,
+    });
+
+    if (error) {
+      console.log(error);
+    } else {
+      const orderData = {
+        line_items: checkoutToken.line_items,
+        customer: {
+          firstname: shippingData.firstName,
+          lastname: shippingData.lastName,
+          email: shippingData.email,
+        },
+        shipping: {
+          name: "International",
+          street: shippingData.address1,
+          town_city: shippingData.city,
+          county_state: shippingData.shippingSubdivision,
+          postal_zip_code: shippingData.zip,
+          country: shippingData.shippingCountry,
+        },
+        fulfillment: { shipping_method: shippingData.shippingOption },
+        payment: {
+          gateway: "stripe",
+          stripe: {
+            payment_method_id: paymentMethod.id,
+          },
+        },
+      };
+
+      onCaptureCheckOut(checkoutToken.id, orderData);
+      nextStep();
+    }
+  };
+
+  return (
+    <>
+      <Review checkoutToken={checkoutToken} />
+      <Divider />
+
+      <Typography variant="h6" gutterBottom style={{ margin: "20px 0" }}>
+        Metodo de pago
+      </Typography>
+      <Elements stripe={stripePromise}>
+        <ElementsConsumer>
+          {({ elements, stripe }) => (
+            <form onSubmit={(e) => handleSubmit(e, elements, stripe)}>
+              <CardElement />
+              <br /> <br />
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <Button variant="outlined" onClick={backStep}>
+                  Volver
+                </Button>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  disabled={!stripe}
+                  color="primary"
+                >
+                  Pagar {checkoutToken.subtotal.formatted_width_symbol}
+                </Button>
+              </div>
+            </form>
+          )}
+        </ElementsConsumer>
+      </Elements>
+    </>
+  );
+};
+
+export default PaymentForm;
