@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles(() => ({
   root: {
-    maxWidth: 345,
+    maxWidth: 275,
     backgroundColor: "#EBF4F5",
   },
   media: {
@@ -19,4 +19,3 @@ export default makeStyles(() => ({
     justifyContent: "space-between",
   },
 }));
-

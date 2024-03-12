@@ -64,15 +64,19 @@ const Navbar = () => {
                 }}
               >
                 <MenuItem>
-                  <Link to="/productos">
+                  <Link to="/">
                     <Typography>Productos</Typography>
                   </Link>
                 </MenuItem>
                 <MenuItem>
-                  <Typography>Nosotros</Typography>
+                  <Link to="/nosotros">
+                    <Typography>Nosotros</Typography>
+                  </Link>
                 </MenuItem>
                 <MenuItem>
-                  <Typography>Contacto</Typography>
+                  <Link to="/contacto">
+                    <Typography>Contacto</Typography>
+                  </Link>
                 </MenuItem>
               </Menu>
             </Box>

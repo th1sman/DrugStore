@@ -1,10 +1,14 @@
-import React from 'react';
-import { useFormContext, Controller } from 'react-hook-form';
-import { TextField, Grid } from '@material-ui/core';
+import React from "react";
+import { useFormContext, Controller } from "react-hook-form";
+import { TextField, Grid, FormHelperText } from "@material-ui/core";
 
 const FormInput = ({ name, label, required }) => {
-  const { control } = useFormContext();
-  const isError = false;
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
+
+  const errorMessage = errors[name] ? errors[name].message : "";
 
   return (
     <Grid item xs={12} sm={6}>
@@ -12,10 +16,29 @@ const FormInput = ({ name, label, required }) => {
         as={TextField}
         name={name}
         control={control}
-        render={({ field }) => <TextField {...field} label={label} fullWidth required />}
+        defaultValue=""
+        rules={{ required }}
+        render={({ field }) => (
+          <>
+            <TextField
+              {...field}
+              label={label}
+              fullWidth
+              required={required}
+              error={!!errorMessage}
+              helperText={errorMessage}
+            />
+            {required && (
+              <FormHelperText error={!!errorMessage}>
+                {errorMessage || "Este campo es obligatorio"}
+              </FormHelperText>
+            )}
+          </>
+        )}
       />
     </Grid>
   );
-}
+};
 
 export default FormInput;
+

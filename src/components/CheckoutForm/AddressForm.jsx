@@ -11,78 +11,41 @@ import { useForm, FormProvider } from "react-hook-form";
 import { Link } from "react-router-dom";
 import FormInput from "./CustomTextField";
 import { commerce } from "../../lib/commerce";
-import { useCheckOutContext } from "../../context/checkOutContext";
 
 const AddressForm = ({ test }) => {
-  const [shippingCountries, setShippingCountries] = useState([]);
-  const [shippingCountry, setShippingCountry] = useState("");
-  const [shippingSubdivisions, setShippingSubdivisions] = useState([]);
-  const [shippingSubdivision, setShippingSubdivision] = useState("");
-  const [shippingOptions, setShippingOptions] = useState([]);
-  const [shippingOption, setShippingOption] = useState("");
+  const [shippingComune, setShippingComune] = useState("");
+  const [country, setCountry] = useState(null);
+
+  useEffect(() => {
+    let cancelRequest = false;
+
+    const fetchCountry = async () => {
+      const response = await commerce.services.localeListCountries();
+      const countriesArray = Object.values(response);
+
+      let country;
+      for (let c of countriesArray) {
+        if (c.code === "CL") {
+          country = c;
+          break;
+        }
+      }
+
+      if (!cancelRequest) {
+        setCountry(country);
+      }
+    };
+
+    fetchCountry();
+
+    return () => {
+      cancelRequest = true;
+    };
+  }, []);
 
   const methods = useForm();
 
-  const checkoutToken = useCheckOutContext();
-
-  const fetchShippingCountries = async () => {
-    try {
-      const { countries } = await commerce.services.localeListShippingCountries(
-        checkoutToken.id,
-      );
-      setShippingCountries(countries);
-      setShippingCountry(Object.keys(countries)[0]);
-    } catch (error) {
-      console.error("Error fetching countries", error);
-    }
-  };
-
-  const fetchSubdivisions = async (countryCode) => {
-    try {
-      const { subdivisions } =
-        await commerce.services.localeListSubdivisions(countryCode);
-
-      setShippingSubdivisions(subdivisions);
-      setShippingSubdivision(Object.keys(subdivisions)[0]);
-    } catch (error) {
-      console.error("error fetching subdivisions", error);
-    }
-  };
-
-  const fetchShippingOptions = async () => {
-    try {
-      const options = await commerce.checkout.getShippingOptions(
-        checkoutToken.id,
-        {
-          country: shippingCountry,
-          region: shippingSubdivision,
-        },
-      );
-      setShippingOptions(options);
-      setShippingOption(options[0].id);
-    } catch (error) {
-      console.error("Error fetching shipping options:", error);
-    }
-  };
-
-  useEffect(() => {
-    if (checkoutToken.id) {
-      fetchShippingCountries();
-    }
-  }, [checkoutToken.id]);
-
-  useEffect(() => {
-    if (shippingCountry) fetchSubdivisions(shippingCountry);
-  }, [shippingCountry]);
-
-  useEffect(() => {
-    if (shippingSubdivision)
-      fetchShippingOptions(
-        checkoutToken.id,
-        shippingCountry,
-        shippingSubdivision,
-      );
-  }, [shippingSubdivision]);
+  const shippingCountry = country ? country.name : "CL - Chile";
 
   return (
     <>
@@ -94,9 +57,8 @@ const AddressForm = ({ test }) => {
           onSubmit={methods.handleSubmit((data) =>
             test({
               ...data,
+              shippingComune,
               shippingCountry,
-              shippingSubdivision,
-              shippingOption,
             }),
           )}
         >
@@ -104,6 +66,31 @@ const AddressForm = ({ test }) => {
             <FormInput required name="firstName" label="Nombre" />
             <FormInput required name="lastName" label="Apellido" />
             <FormInput required name="address1" label="Dirección" />
+            <Grid item xs={12} sm={6}>
+              <InputLabel>Comuna de envio</InputLabel>
+              <Select
+                value={shippingComune}
+                fullWidth
+                onChange={(e) => setShippingComune(e.target.value)}
+              >
+                {[
+                  "Puente Alto",
+                  "La Florida",
+                  "San Joaquín",
+                  "La Granja",
+                  "San Ramón",
+                  "La Cisterna",
+                  "Macul",
+                  "Peñalolén",
+                  "San Miguel",
+                ].map((comuna) => (
+                  <MenuItem key={comuna} value={comuna}>
+                    {comuna}
+                  </MenuItem>
+                ))}
+              </Select>
+            </Grid>
+
             <FormInput required name="email" label="E-mail" />
           </Grid>
           <br />

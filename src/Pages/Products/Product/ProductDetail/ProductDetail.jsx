@@ -167,7 +167,6 @@ export const ProductDetail = ({ onAddToCart }) => {
             </Grid>
           </Grid>
         </Grid>
-        {loading && <Spinner />}
       </Grid>
     </Container>
   );
