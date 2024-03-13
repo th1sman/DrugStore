@@ -6,70 +6,66 @@ import {
   ElementsConsumer,
 } from "@stripe/react-stripe-js";
 
-import { loadStripe } from "@stripe/stripe-js";
 import { useCheckOutContext } from "../../context/checkOutContext";
 import Review from "./Review";
+import Spinner from "../Spinner/Spinner";
 
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
-
-const PaymentForm = ({
-  shippingData,
-  backStep,
-  nextStep,
-  onCaptureCheckOut,
-}) => {
-  const { checkoutToken, isCheckoutLoading } = useCheckOutContext();
-
+const PaymentForm = ({ shippingData, backStep, nextStep }) => {
+  console.log(shippingData);
+  const {
+    checkoutToken,
+    isCheckoutLoading,
+    handleCaptureCheckout,
+    paymentInfo,
+    createPaymentMethod,
+    stripePromise,
+  } = useCheckOutContext();
   if (!checkoutToken || !checkoutToken.line_items || isCheckoutLoading) {
-    // Puedes mostrar un mensaje de carga o retornar null si los datos aún no están disponibles
     return (
       <Typography variant="subtitle1">
         Cargando información de pago..
+        <Spinner />
       </Typography>
     );
   }
 
   const handleSubmit = async (event, elements, stripe) => {
     event.preventDefault();
+    try {
+      if (!stripe || !elements) return;
 
-    if (!stripe || !elements) return;
+      const cardElement = elements.getElement(CardElement);
 
-    const cardElement = elements.getElement(CardElement);
+      await createPaymentMethod(cardElement);
 
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: "card",
-      card: cardElement,
-    });
-
-    if (error) {
-      console.log(error);
-    } else {
-      const orderData = {
-        line_items: checkoutToken.line_items,
-        customer: {
-          firstname: shippingData.firstName,
-          lastname: shippingData.lastName,
-          email: shippingData.email,
-        },
-        shipping: {
-          name: "International",
-          street: shippingData.address1,
-          town_city: shippingData.city,
-          county_state: shippingData.shippingSubdivision,
-          postal_zip_code: shippingData.zip,
-          country: shippingData.shippingCountry,
-        },
-        fulfillment: { shipping_method: shippingData.shippingOption },
-        payment: {
-          gateway: "stripe",
-          stripe: {
-            payment_method_id: paymentMethod.id,
+      if (paymentInfo) {
+        const orderData = {
+          line_items: checkoutToken.line_items,
+          customer: {
+            firstname: shippingData.firstName,
+            lastname: shippingData.lastName,
+            email: shippingData.email,
           },
-        },
-      };
+          shipping: {
+            name: "National",
+            street: shippingData.address1,
+            comune: shippingData.shippingComune,
+            countyState: "SA",
+            country: "CL",
+          },
+          payment: {
+            gateway: "stripe",
+            stripe: {
+              payment_method_id: paymentInfo.id,
+            },
+          },
+        };
 
-      onCaptureCheckOut(checkoutToken.id, orderData);
-      nextStep();
+        handleCaptureCheckout(checkoutToken.id, orderData);
+        nextStep();
+      }
+    } catch (err) {
+      console.error("Error en el manejo del pago:", err);
     }
   };
 
@@ -86,7 +82,6 @@ const PaymentForm = ({
           {({ elements, stripe }) => (
             <form onSubmit={(e) => handleSubmit(e, elements, stripe)}>
               <CardElement />
-              <br /> <br />
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <Button variant="outlined" onClick={backStep}>
                   Volver
@@ -97,7 +92,7 @@ const PaymentForm = ({
                   disabled={!stripe}
                   color="primary"
                 >
-                  Pagar {checkoutToken.subtotal.formatted_width_symbol}
+                  Pagar {checkoutToken.subtotal.formatted_width_code}
                 </Button>
               </div>
             </form>

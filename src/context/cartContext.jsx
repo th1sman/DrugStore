@@ -9,7 +9,7 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState({
     total_items: 0,
     line_items: [],
-    subtotal: { formatted_with_symbol: "0" },
+    subtotal: { formatted_with_code: "0" },
   });
 
   const fetchCart = async () => {
