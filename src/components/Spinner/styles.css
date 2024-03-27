@@ -1,10 +1,10 @@
 .spinner {
-  border: 5px solid rgba(255, 255, 255, 0.3); /* Light grey */
-  border-top: 5px solid #555; /* Darker grey */
-  width: 100%;
-  height: auto;
-  border: 2px solid green;
-  animation: spin 1s linear infinite;
+  border: 2px solid rgba(255, 255, 255, 0.2); /* Color de fondo más claro */
+  border-top: 4px solid #3498db; /* Color de borde superior - azul */
+  border-radius: 50%; /* Hace que el spinner sea completamente circular */
+  width: 50px; /* Tamaño más pequeño y manejable */
+  height: 50px; /* Altura igual al ancho para mantener la forma circular */
+  animation: spin 1s linear infinite; /* Mantiene la animación original */
 }
 
 @keyframes spin {

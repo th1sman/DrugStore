@@ -14,7 +14,12 @@ const Products = ({ products }) => {
 
   return (
     <div>
-      <Grid container justifyContent="center" className={classes.container}>
+      <Grid
+        container
+        justifyContent="center"
+        spacing={4}
+        className={classes.container}
+      >
         {products.map((product) => (
           <Grid
             item
@@ -23,7 +28,7 @@ const Products = ({ products }) => {
             xs={12}
             sm={6}
             md={4}
-            lg={12}
+            lg={3}
           >
             <Product product={product} onAddToCart={handleAddToCart} />
           </Grid>
