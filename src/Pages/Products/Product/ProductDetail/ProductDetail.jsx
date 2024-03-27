@@ -89,7 +89,7 @@ export const ProductDetail = ({ onAddToCart }) => {
             src={product.src}
             alt={product.name}
           />
-          <Paper className="variant" elevation={3}>
+          <Paper className="variant" elevation={1}>
             {product.variant_groups?.length
               ? product.variant_groups[0].options?.map((option) => (
                   <img
@@ -142,16 +142,6 @@ export const ProductDetail = ({ onAddToCart }) => {
               >
                 -
               </Button>
-            </Grid>
-            <Grid item>
-              <Typography variant="h6">
-                Talla :
-                {product.variant_groups?.length
-                  ? product.variant_groups[1].options?.map((option) => (
-                      <Button variant="outlined">{option.name}</Button>
-                    ))
-                  : null}
-              </Typography>
             </Grid>
             <Grid item xs={12}>
               <Button

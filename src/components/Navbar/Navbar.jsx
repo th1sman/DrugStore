@@ -101,23 +101,23 @@ const Navbar = () => {
               <Link to="/https://web.whatsapp.com/" className={classes.Link}>
                 <Typography>Contacto</Typography>
               </Link>
-
               <div className={classes.grow} />
-              <IconButton
-                component={Link}
-                to="/cart"
-                aria-label="show cart items"
-                color="inherit"
-              >
-                <Badge
-                  badgeContent={totalItems}
-                  overlap="rectangular"
-                  color="secondary"
-                >
-                  <ShoppingCart />
-                </Badge>
-              </IconButton>
             </Box>
+            <IconButton
+              component={Link}
+              to="/cart"
+              aria-label="show cart items"
+              color="inherit"
+              sx={{ display: { xl: "none" } }}
+            >
+              <Badge
+                badgeContent={totalItems}
+                overlap="rectangular"
+                color="secondary"
+              >
+                <ShoppingCart />
+              </Badge>
+            </IconButton>
           </Toolbar>
         </Container>
       </AppBar>
