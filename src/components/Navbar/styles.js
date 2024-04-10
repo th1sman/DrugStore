@@ -19,7 +19,9 @@ export default makeStyles((theme) => ({
   Link: {
     color: "#0f0909",
     textDecoration: "none",
-    padding: "10px",
+    "&:visited": {
+      textDecoration: "none",
+    },
   },
   image: {
     marginRight: "10px",
