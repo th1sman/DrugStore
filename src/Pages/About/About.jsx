@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Paper, Box, Typography, Grid } from "@material-ui/core";
 import useStyles from "./styles";
 import { styled } from "@mui/material/styles";
-import aboutPic from "../../assests/about.png";
+import aboutPic from "../../assests/aboutaAgua.png";
 
 const About = () => {
   const classes = useStyles();
@@ -28,7 +28,7 @@ const About = () => {
             </Item>
           </Grid>
           <Grid item xs={12} md={4} lg={4}>
-            <Item elevation={6}>
+            <Item elevation={3}>
               <Typography variant="h5">Sobre nosotros</Typography>
               <Typography variant="subtitle1" className={classes.paragraph}>
                 Somos una empresa familiar creada el año 2018 luego de la
@@ -37,7 +37,7 @@ const About = () => {
                 manteniendo aún mucho de mis clientes de aquella época.
               </Typography>
             </Item>
-            <Item elevation={6}>
+            <Item elevation={3}>
               <Typography variant="subtitle2">
                 Con el apoyo de mi esposa e hijos nuestra empresa se ha
                 caracterizado por entregar un producto de calidad, con un

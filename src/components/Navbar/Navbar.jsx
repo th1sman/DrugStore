@@ -65,7 +65,7 @@ const Navbar = () => {
               >
                 <MenuItem>
                   <Link to="/">
-                    <Typography>Productos</Typography>
+                    <Typography className={classes.Link}>Productos</Typography>
                   </Link>
                 </MenuItem>
                 <MenuItem>
@@ -74,7 +74,7 @@ const Navbar = () => {
                   </Link>
                 </MenuItem>
                 <MenuItem>
-                  <Link to="/contacto">
+                  <Link to="/https://web.whatsapp.com">
                     <Typography>Contacto</Typography>
                   </Link>
                 </MenuItem>

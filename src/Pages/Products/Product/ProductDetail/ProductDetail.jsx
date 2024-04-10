@@ -6,25 +6,21 @@ import {
   Typography,
   Grid,
   Paper,
-  Card,
-  CardContent,
-  CardMedia,
-  CardActionArea,
-  Divider,
   Button,
 } from "@material-ui/core";
 import { AddShoppingCart } from "@material-ui/icons";
-import Spinner from "../../../../components/Spinner/Spinner";
 import "./styles.css";
+import { useCartContext } from "../../../../context/cartContext";
 
 const createMarkup = (text) => {
   return { __html: text };
 };
 
-export const ProductDetail = ({ onAddToCart }) => {
+export const ProductDetail = () => {
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
+  const { handleAddToCart } = useCartContext();
 
   const fetchProduct = async (id) => {
     const response = await commerce.products.retrieve(id);
@@ -148,9 +144,7 @@ export const ProductDetail = ({ onAddToCart }) => {
                 size="large"
                 className="custom-button"
                 fullWidth
-                onClick={() => {
-                  onAddToCart(product.id, quantity);
-                }}
+                onClick={() => handleAddToCart(product.id, 1)}
               >
                 <AddShoppingCart /> Agregar al carrito
               </Button>

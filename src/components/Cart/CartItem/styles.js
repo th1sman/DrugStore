@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles(() => ({
   media: {
-    height: 280,
+    height: 250,
   },
   cardContent: {
     display: "flex",
@@ -16,4 +16,3 @@ export default makeStyles(() => ({
     alignItems: "center",
   },
 }));
-

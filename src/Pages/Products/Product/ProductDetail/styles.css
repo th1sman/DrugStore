@@ -8,6 +8,7 @@
 
 .product-view .image-wrapper img {
   width: 100%;
+  max-height: 400px;
 }
 
 .product-view .variant img {
@@ -66,8 +67,17 @@
 
 @media (min-width: 960px) {
   .MuiContainer-root.product-view {
-    height: 88vh;
-    margin: 40px 0 0;
+    height: 60vh;
   }
 }
 
+@media only screen and (max-width: 768px) {
+  .MuiContainer-root.product-view {
+    height: 20px;
+    padding-top: 175px;
+  }
+
+  .product-view .image-wrapper img {
+    max-height: 400px;
+  }
+}
