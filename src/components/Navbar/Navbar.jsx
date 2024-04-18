@@ -56,7 +56,12 @@ const Navbar = () => {
                   vertical: "bottom",
                   horizontal: "left",
                 }}
+                getContentAnchorEl={null}
                 keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
                 sx={{

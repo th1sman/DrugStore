@@ -1,16 +1,12 @@
 import { Grid } from "@material-ui/core";
-import Spinner from "../../components/Spinner/Spinner";
 import { useCartContext } from "../../context/cartContext";
-
 import useStyles from "./styles";
 import Product from "./Product/Product";
 
-const Products = ({ products }) => {
+export function Products({ products }) {
   const classes = useStyles();
 
   const { handleAddToCart } = useCartContext();
-
-  if (!products.length) return <Spinner />;
 
   return (
     <div>
@@ -36,6 +32,6 @@ const Products = ({ products }) => {
       </Grid>
     </div>
   );
-};
+}
 
 export default Products;

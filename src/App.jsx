@@ -4,8 +4,8 @@ import CheckoutForm from "./components/CheckoutForm/Checkout/Checkout";
 import Cart from "./components/Cart/Cart";
 import About from "./Pages/About/About";
 import { commerce } from "./lib/commerce";
-import { ProductDetail } from "./Pages/Products/Product/ProductDetail/ProductDetail";
-import { Products } from "./Pages";
+import { ProductDetail } from "./components/Products/Product/ProductDetail/ProductDetail";
+import { Products } from "./components/Products/Products";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core";
 import theme from "./theme";
@@ -17,26 +17,11 @@ import { CheckOutProvider } from "./context/checkOutContext";
 const App = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [products, setProducts] = useState([]);
-  const [order, setOrder] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
 
   const fetchProducts = async () => {
     const { data } = await commerce.products.list();
     setProducts(data);
-  };
-
-  const handleCaptureCheckOut = async (checkoutTokenId, newOrder) => {
-    try {
-      const incomingOrder = await commerce.checkout.capture(
-        checkoutTokenId,
-        newOrder,
-      );
-
-      setOrder(incomingOrder);
-      refreshCart();
-    } catch (err) {
-      setErrorMessage(err.data.err.message);
-    }
   };
 
   useEffect(() => {
@@ -63,13 +48,7 @@ const App = () => {
                 <Route path="/cart" element={<Cart />} />
                 <Route
                   path="/checkout"
-                  element={
-                    <CheckoutForm
-                      order={order}
-                      onCaptureCheckOut={handleCaptureCheckOut}
-                      error={errorMessage}
-                    />
-                  }
+                  element={<CheckoutForm error={errorMessage} />}
                 ></Route>
               </Routes>
             </Router>

@@ -16,11 +16,11 @@ const createMarkup = (text) => {
   return { __html: text };
 };
 
-export const ProductDetail = () => {
+export function ProductDetail() {
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
-  const [loading, setLoading] = useState(true);
   const { handleAddToCart } = useCartContext();
+  const [loading, setLoading] = useState(true);
 
   const fetchProduct = async (id) => {
     const response = await commerce.products.retrieve(id);
@@ -154,4 +154,4 @@ export const ProductDetail = () => {
       </Grid>
     </Container>
   );
-};
+}

@@ -17,6 +17,8 @@ import useStyles from "./styles";
 
 const Product = ({ product }) => {
   const { handleAddToCart } = useCartContext();
+  const [loading, setLoading] = useState(true);
+
   const clasess = useStyles();
   const navigate = useNavigate();
 
