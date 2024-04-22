@@ -1,6 +1,5 @@
 import { createTheme } from "@mui/material/styles";
 
-//Colores principales
 const columbia = "#CBDFEA";
 const celeste = "#A3C6D0";
 const cerulean = "#2E7195";

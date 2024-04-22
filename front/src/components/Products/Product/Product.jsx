@@ -12,13 +12,13 @@ import { useCartContext } from "../../../context/cartContext";
 import { AddShoppingCart } from "@material-ui/icons";
 import Divider from "@mui/material/Divider";
 import { useNavigate } from "react-router";
+import { useState } from "react";
 
 import useStyles from "./styles";
 
 const Product = ({ product }) => {
   const { handleAddToCart } = useCartContext();
-  const [loading, setLoading] = useState(true);
-
+  const [loading, setLoading] = useState(false);
   const clasess = useStyles();
   const navigate = useNavigate();
 
@@ -30,11 +30,19 @@ const Product = ({ product }) => {
           navigate(`/productos/${product.id}`);
         }}
       >
-        <CardMedia
-          className={clasess.media}
-          image={product.image.url}
-          title={product.name}
-        />
+        {loading ? (
+          <Skeleton
+            sx={{ height: 190 }}
+            animation="wave"
+            variant="rectangular"
+          />
+        ) : (
+          <CardMedia
+            className={clasess.media}
+            image={product.image.url}
+            title={product.name}
+          />
+        )}
       </CardActionArea>
       <CardContent>
         <div className={clasess.cardContent}>

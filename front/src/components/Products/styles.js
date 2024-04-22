@@ -2,13 +2,12 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
   container: {
-    paddingTop: 100,
     alignItems: "center",
-    backgroundColor: "#A3C6D0",
+    paddingTop: 35,
   },
   root: {
     maxWidth: 420,
-    margin: theme.spacing(5),
+    margin: theme.spacing(3),
     borderRadius: theme.shape.borderRadius,
     transition: "0.3s",
     "&:hover": {},
@@ -16,6 +15,5 @@ export default makeStyles((theme) => ({
   media: {
     maxWidth: 100,
     height: 140,
-    backgroundSize: "contain",
   },
 }));

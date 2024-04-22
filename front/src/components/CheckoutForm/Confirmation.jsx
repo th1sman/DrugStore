@@ -2,7 +2,6 @@ import React from "react";
 import { Typography, Button, CircularProgress } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useCheckOutContext } from "../../context/checkOutContext";
-import { useCartContext } from "../../context/cartContext";
 
 const Confirmation = ({ shippingData }) => {
   const { isCheckoutLoading, error, paymentInfo, checkoutToken } =

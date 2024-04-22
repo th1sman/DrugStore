@@ -11,7 +11,6 @@ import Review from "./Review";
 import Spinner from "../Spinner/Spinner";
 
 const PaymentForm = ({ shippingData, backStep, nextStep }) => {
-  console.log(shippingData);
   const {
     checkoutToken,
     isCheckoutLoading,

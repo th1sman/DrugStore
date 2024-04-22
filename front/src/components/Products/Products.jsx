@@ -13,7 +13,7 @@ export function Products({ products }) {
       <Grid
         container
         justifyContent="center"
-        spacing={4}
+        spacing={3}
         className={classes.container}
       >
         {products.map((product) => (
